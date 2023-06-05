@@ -45,7 +45,7 @@ def blog(request):
     page = request.GET.get('page')
     page_obj = paginator.get_page(page)
 
-    latest_post = Post.objects.order_by('timestamp')
+    latest_post = Post.objects.order_by('-timestamp')[0:3]
 
     context = {
         'latest_post': latest_post,
@@ -57,5 +57,5 @@ def blog(request):
     return render(request, 'blog.html', context)
 
 
-def post(request, pk):
+def post_detail(request, slug):
     return render(request, 'post.html')

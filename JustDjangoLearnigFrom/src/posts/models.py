@@ -10,6 +10,7 @@ class Tages(models.Model):
     title = models.CharField(max_length=20)
     timestamp = models.DateTimeField(auto_now_add=True)
 
+
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_pic = models.ImageField(upload_to='Author_Images/')
@@ -26,6 +27,7 @@ class Category(models.Model):
 
 
 class Post(models.Model):
+    slug = models.CharField(max_length=50, unique=True)
     title = models.CharField(max_length=100)
     overview = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -44,7 +46,4 @@ class Post(models.Model):
         verbose_name_plural = 'Posts'
 
     def get_absolute_url(self):
-        return reverse("post", kwargs={"pk": self.pk})
-
-
-
+        return reverse("post", kwargs={"slug": self.slug})
